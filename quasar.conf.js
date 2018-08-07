@@ -23,8 +23,8 @@ module.exports = function (ctx) {
     },
     build: {
       scopeHoisting: true,
-      publicPath: '/',
-      vueRouterMode: 'hash',
+      publicPath: 'https://monstra-testapp.herokuapp.com/',
+      vueRouterMode: 'history',
       // gzip: true,
       // analyze: true,
       // extractCSS: false,
