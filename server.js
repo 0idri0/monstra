@@ -6,5 +6,5 @@ const port = process.env.PORT || 5000;
 
 const app = express();
 app.use(history());
-app.use(serveStatic((__dirname + '/dist/spa-mat'));
+app.use(serveStatic('/dist/spa-mat'));
 app.listen(port);
