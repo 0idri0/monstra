@@ -4,18 +4,17 @@
     <q-carousel
       color="white"
       arrows
-      quick-nav
       infinite
       autoplay
-      height="calc(100vh - 100px)"
+      height="100vh"
     >
       <q-carousel-slide v-for="br in posts" :key="br.id"
                         :img-src="br._embedded['wp:featuredmedia']['0'].source_url"
                         v-if="br.featured_media > 0">
-        <router-link :to="br.slug"
-                     class="absolute-top-left custom-caption">
+        <!--<router-link :to="br.slug"
+                     class="absolute-bottom custom-caption">
           <div class="q-headline">{{br.title.rendered}}</div>
-        </router-link>
+        </router-link>-->
       </q-carousel-slide>
     </q-carousel>
   </q-page>
@@ -57,7 +56,8 @@ export default {
     p.caption:not(:first-of-type)
       margin-top 38px
     .custom-caption
-      text-align left
+      text-align center
+      text-transform uppercase
       padding 12px
       color $grey-4
       background rgba(0, 0, 0, .5)

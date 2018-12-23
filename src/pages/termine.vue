@@ -87,13 +87,19 @@ export default {
           align: 'left',
           field: 'location',
         },
+        {
+          name: 'special',
+          label: '',
+          align: 'left',
+          field: 'special',
+        },
       ],
-      visibleColumns: ['date', 'location'],
+      visibleColumns: ['date', 'location', 'special'],
       pagination: {
         sortBy: null,
         descending: false,
         page: 1,
-        rowsPerPage: 10,
+        rowsPerPage: 100,
       },
     };
   },
@@ -106,6 +112,7 @@ export default {
         Object.keys(conv2).forEach((el) => {
           conv2[el].date = conv2[el].toLocaleString('de-DE', this.options);
           conv2[el].location = conv[el].ort;
+          conv2[el].special = conv[el].special;
           conv2[el].name = this.posts[post].title.rendered;
         });
         eventlist.push(conv2);

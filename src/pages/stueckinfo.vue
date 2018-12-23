@@ -2,24 +2,32 @@
   <div>
     <div v-for="br in posts" :key="br.id" v-if="br.slug === $route.params.id"
       class="q-ma-sm q-pa-md">
-      <h2 class="q-display-3">{{ br.title.rendered }}</h2>
-      <div class="row justify-center items-start">
-        <div class="col-sm-6 maincontent">
-            <img :src="br._embedded['wp:featuredmedia']['0'].source_url"
-                 v-if="br.featured_media > 0"/>
-        <div class="q-mt-xl col-sm-6 maincontent">
+      <h3>{{ br.title.rendered }}</h3>
+      <div class="row justify-center items-start gutter-xl">
+        <div class="col-lg-4 col-md-6 maincontent">
+          <img class="lt-md mainimage" :src="br._embedded['wp:featuredmedia']['0'].source_url"
+               v-if="br.featured_media > 0"
+               @click="fullscreenImage(br._embedded['wp:featuredmedia']['0'].source_url)"/>
+        <div>
             <div v-html="br.content.rendered"/>
+          <hr class="q-hr">
           <h5 >Aktuelle Termine</h5>
           <q-list>
             <q-item v-for="item in dates" :key="item.id" v-if="item > Date.now()">
               <q-item-side icon="event" inverted color="dark" />
               <q-item-main>
                 <q-item-tile label>{{ item.toLocaleString('de-DE', options)}}</q-item-tile>
+                <q-item-tile label>{{ item.special}}</q-item-tile>
                 <q-item-tile sublabel>{{item.location}}</q-item-tile>
               </q-item-main>
             </q-item>
           </q-list>
         </div>
+        </div>
+        <div class="col-lg-6 col-md-5 maincontent">
+        <img class="gt-sm mainimage" :src="br._embedded['wp:featuredmedia']['0'].source_url"
+             v-if="br.featured_media > 0"
+             @click="fullscreenImage(br._embedded['wp:featuredmedia']['0'].source_url)"/>
           <hr class="q-hr">
           <div class="row">
             <q-card inline class="q-ma-lg col-xl-5"
@@ -33,10 +41,12 @@
       </div>
     </div>
     <q-modal v-model="imageModal" maximized>
-      <q-page-sticky class="q-ml-lg" expand position="top-left">
-        <q-btn round color="light" @click="imageModal = false" icon="close" />
-      </q-page-sticky>
+      <div class="imgModal">
       <img class="absolute-center" :src="selectedImage"/>
+      <q-page-sticky class="q-ml-lg" expand position="top-left" :offset="[10, 10]">
+        <q-btn round color="light" @click="imageModal = false" icon="close"/>
+      </q-page-sticky>
+      </div>
     </q-modal>
   </div>
 </template>
@@ -77,6 +87,7 @@ export default {
           this.dates = Object.keys(eventlist).map(key => new Date(eventlist[key].datum));
           Object.keys(this.dates).forEach((el) => {
             this.dates[el].location = eventlist[el].ort;
+            this.dates[el].special = eventlist[el].special;
           });
           this.sortDates(this.dates);
         }
@@ -118,9 +129,11 @@ export default {
   @import '~variables'
   .maincontent > img
       max-width 100%
-  .modal-content
+  .imgModal
+    width 100%
+    height 100%
     background-color $dark
-  .modal-content > img
+  .imgModal > img
     max-width 100%
     max-height 100vh
   .q-list
@@ -131,5 +144,7 @@ export default {
     font-size 18px
     height 28px
     width 28px
+  .mainimage
+    max-height: 60vh
 
 </style>

@@ -4,9 +4,9 @@
           v-for="br in posts" :key="br.id">
         <router-link :to="br.slug">
         <q-card-media overlay-position="bottom">
-        <img :src="br._embedded['wp:featuredmedia']['0'].source_url"
+        <img class="img-crop" :src="br._embedded['wp:featuredmedia']['0'].source_url"
              v-if="br.featured_media > 0"/>
-        <q-card-title slot="overlay">
+        <q-card-title slot="overlay" class="text-center">
          {{br.title.rendered}}
         </q-card-title>
         </q-card-media>
@@ -45,7 +45,13 @@ export default {
 
 <style lang="stylus">
   @import '~variables'
+  .img-crop
+    object-fit cover
+    height 50vh
+    width 100%
   @media (max-width $breakpoint-xs-max)
     .q-card
       width 100%
+      object-fit cover
+      hight: 50vh
 </style>

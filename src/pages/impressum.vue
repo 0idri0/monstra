@@ -1,17 +1,13 @@
 <template>
   <div>
-    <div v-for="br in pages" :key="br.id" v-if="br.slug === 'about'"
+    <div v-for="br in pages" :key="br.id" v-if="br.slug === 'impressum'"
          class="q-ma-sm q-pa-md">
-      <h3>Über uns</h3>
-      <div class="row justify-center items-start gutter-xl">
-          <div class="col-lg-4 col-md-6 maincontent">
-            <img class="lt-md" :src="br._embedded['wp:featuredmedia']['0'].source_url"
-                 v-if="br.featured_media > 0"/>
+      <h3>Impressum</h3>
+      <div class="row justify-center items-start">
+        <div class="col-sm-6 maincontent">
+          <div class="q-mt-xl col-sm-6 maincontent">
             <div v-html="br.content.rendered"/>
           </div>
-        <div class="col-lg-6 col-md-5 maincontent">
-          <img class="gt-sm" :src="br._embedded['wp:featuredmedia']['0'].source_url"
-               v-if="br.featured_media > 0"/>
         </div>
       </div>
     </div>
@@ -19,6 +15,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'about',
   created() {
@@ -45,8 +42,6 @@ export default {
 };
 </script>
 
-<style lang="stylus">
-  .maincontent > img
-    max-width 100%
+<style scoped>
 
 </style>

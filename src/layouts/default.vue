@@ -1,18 +1,19 @@
 <template>
   <q-layout view="hHr lpr fFf">
-    <q-layout-header>
+    <q-page-sticky class="lt-md" position="top-right">
+      <q-btn color="light" @click="right = !right" icon="menu"/>
+    </q-page-sticky>
+    <q-layout-header class="gt-xs" reveal>
       <q-toolbar
-        color="white" text-color="dark"
+        color="ajda1" text-color="dark"
         class="q-py-none"
       >
         <q-toolbar-title>
-          <img class="logo" alt="Logo" src="~assets/logo_from_pdf.png">
+          <router-link to="/">
+          <img class="logo" alt="Logo" src="~assets/mooooo.svg">
+          </router-link>
         </q-toolbar-title>
-        <q-tabs color="dark" inverted class="gt-sm">
-          <q-route-tab label="Home"
-                       to="/"
-                       slot="title"
-          />
+        <q-tabs color="ajda1" text-color="dark" class="gt-sm">
           <q-route-tab label="Stücke"
                         to="/stuecke"
                         slot="title"
@@ -21,7 +22,7 @@
                        to="/termine"
                        slot="title"
           />
-          <q-route-tab label="Über uns"
+          <q-route-tab label="Überuns"
                        to="/about"
                        slot="title"
           />
@@ -31,7 +32,7 @@
           />
         </q-tabs>
         <q-btn
-          class="lt-md hide-on-drawer-visible"
+          class="lt-md"
           flat round dense
           icon="menu"
           @click="right = !right"
@@ -39,16 +40,13 @@
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer
-      side="right"
+    <q-modal
       v-model="right">
-        <q-list-header>
-          M O N S T R A - Theater für junges Publikum</q-list-header>
+      <router-link to="/">
+        <q-list-header style="'text-decoration': 'none'">
+          M O N S T R A</q-list-header>
+      </router-link>
         <q-list no-border highlight sparse separator>
-          <q-item to="/">
-            <q-item-main label="Home">
-            </q-item-main>
-          </q-item>
           <q-item to="/stuecke">
             <q-item-main label="Stücke">
             </q-item-main>
@@ -66,17 +64,18 @@
             </q-item-main>
           </q-item>
         </q-list>
-    </q-layout-drawer>
+    </q-modal>
 
     <q-page-container class="q-pb-xl">
-      <router-view />
+      <router-view/>
     </q-page-container>
 
-    <q-layout-footer class="fixed-bottom">
-      <q-toolbar color="white" text-color="dark">
-        <q-toolbar-title class="q-caption">
-          Copyright 2018 M O N S T R A
+    <q-layout-footer reveal>
+      <q-toolbar toolbar-small color="ajda1" text-color="dark">
+        <q-toolbar-title color="ajda1" text-color="dark" class="q-caption">
+          Copyright 2018 - M O N S T R A
         </q-toolbar-title>
+        <router-link class="q-caption" to="/impressum">Impressum</router-link>
       </q-toolbar>
     </q-layout-footer>
   </q-layout>
@@ -99,4 +98,7 @@ export default {
   .logo
     height: 50px;
     padding: 5px;
+  .svg {
+    position: absolute;
+  }
 </style>
