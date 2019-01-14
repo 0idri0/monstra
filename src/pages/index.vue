@@ -3,7 +3,6 @@
   <q-page class="docs-carousel">
     <q-carousel
       color="white"
-      arrows
       infinite
       autoplay
       height="100vh"
@@ -11,10 +10,8 @@
       <q-carousel-slide v-for="br in posts" :key="br.id"
                         :img-src="br._embedded['wp:featuredmedia']['0'].source_url"
                         v-if="br.featured_media > 0">
-        <!--<router-link :to="br.slug"
-                     class="absolute-bottom custom-caption">
-          <div class="q-headline">{{br.title.rendered}}</div>
-        </router-link>-->
+        <div class="imglink" @click="goToPage(br.slug)">
+        </div>
       </q-carousel-slide>
     </q-carousel>
   </q-page>
@@ -45,6 +42,9 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    goToPage(page) {
+      this.$router.push(page);
+    },
   },
   name: 'PageIndex',
 };
@@ -55,6 +55,9 @@ export default {
     @import '~variables'
     p.caption:not(:first-of-type)
       margin-top 38px
+    .imglink
+      mind-width 100%
+      min-height 100%
     .custom-caption
       text-align center
       text-transform uppercase

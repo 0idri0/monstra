@@ -84,6 +84,10 @@ module.exports = function (ctx) {
         'QCarouselControl',
         'QContextMenu',
         'QModal',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QTableColumns',
       ],
       directives: [
         'Ripple',

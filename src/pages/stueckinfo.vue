@@ -28,13 +28,15 @@
         <img class="gt-sm mainimage" :src="br._embedded['wp:featuredmedia']['0'].source_url"
              v-if="br.featured_media > 0"
              @click="fullscreenImage(br._embedded['wp:featuredmedia']['0'].source_url)"/>
+          <div v-html="br._embedded['wp:featuredmedia']['0'].caption.rendered"/>
           <hr class="q-hr">
           <div class="row">
-            <q-card inline class="q-ma-lg col-xl-5"
+            <q-card inline class="q-ma-lg col-xl-5 shadow-0 q-caption"
                     v-for="img in media" :key="img.id" v-if="br.id === img.post">
               <q-card-media>
                 <img :src="img.source_url" @click="fullscreenImage(img.source_url)"/>
               </q-card-media>
+              <div v-html="img.caption.rendered"/>
             </q-card>
           </div>
         </div>

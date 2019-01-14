@@ -1,9 +1,6 @@
 <template>
-  <q-layout view="hHr lpr fFf">
-    <q-page-sticky class="lt-md" position="top-right">
-      <q-btn color="light" @click="right = !right" icon="menu"/>
-    </q-page-sticky>
-    <q-layout-header class="gt-xs" reveal>
+  <q-layout view="hHr lpr fff">
+    <q-layout-header>
       <q-toolbar
         color="ajda1" text-color="dark"
         class="q-py-none"
@@ -33,9 +30,9 @@
         </q-tabs>
         <q-btn
           class="lt-md"
-          flat round dense
-          icon="menu"
-          @click="right = !right"
+          flat
+          size="xl"
+          @click="togglemenu" icon="menu"
         />
       </q-toolbar>
     </q-layout-header>
@@ -43,9 +40,14 @@
     <q-modal
       v-model="right">
       <router-link to="/">
-        <q-list-header style="'text-decoration': 'none'">
-          M O N S T R A</q-list-header>
+        <q-list-header>M O N S T R A</q-list-header>
       </router-link>
+      <q-btn
+        class="lt-md"
+        flat
+        size="xl"
+        @click="togglemenu" icon="close"
+      />
         <q-list no-border highlight sparse separator>
           <q-item to="/stuecke">
             <q-item-main label="Stücke">
@@ -70,12 +72,12 @@
       <router-view/>
     </q-page-container>
 
-    <q-layout-footer reveal>
+    <q-layout-footer>
       <q-toolbar toolbar-small color="ajda1" text-color="dark">
         <q-toolbar-title color="ajda1" text-color="dark" class="q-caption">
           Copyright 2018 - M O N S T R A
         </q-toolbar-title>
-        <router-link class="q-caption" to="/impressum">Impressum</router-link>
+        <router-link class="q-caption" to="/impressum">Impressum & Datenschutz</router-link>
       </q-toolbar>
     </q-layout-footer>
   </q-layout>
@@ -89,7 +91,18 @@ export default {
   data() {
     return {
       right: false,
+      buttonstyle: 'menu',
     };
+  },
+  methods: {
+    togglemenu() {
+      this.right = !this.right;
+      if (this.right === true) {
+        this.buttonstyle = 'close';
+      } else {
+        this.buttonstyle = 'menu';
+      }
+    },
   },
 };
 </script>

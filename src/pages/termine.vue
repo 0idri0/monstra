@@ -5,10 +5,16 @@
       title="Aufführungstermine"
       :data="dates"
       :columns="columns"
-      row-key="name"
+      row-key="date"
       :pagination.sync="pagination"
-
-    />
+      :visible-columns="visibleColumns">
+      <q-tr slot="body" slot-scope="props" :props="props"
+            @click.native="rowClick(props.row)" class="cursor-pointer">
+        <q-td v-for="col in props.cols" :key="col.name" :props="props">
+           {{ col.value }}
+        </q-td>
+      </q-tr>
+    </q-table>
     </div>
     <div class="lt-sm">
     <q-table
@@ -16,7 +22,7 @@
       hide-header
       :data="dates"
       :columns="columns"
-      :visible-columns="visibleColumns"
+      :visible-columns="visibleColumns1"
       :pagination.sync="pagination"
       row-key="name"
     >
@@ -26,12 +32,14 @@
         class="q-pa-xs col-xs-12 col-sm-6 col-md-4 transition-generic">
         <q-card>
           <q-card-title class="relative-position">
+            <router-link :to="props.row.slug">
             {{ props.row.name }}
+            </router-link>
           </q-card-title>
           <q-card-separator />
           <q-card-main class="q-pa-none">
             <q-list no-border>
-              <q-item v-for="col in props.cols" :key="col.name">
+              <q-item v-for="col in props.cols" :key="col.date">
                 <q-item-main>
                   <q-item-tile label>{{ col.label }}</q-item-tile>
                 </q-item-main>
@@ -93,8 +101,15 @@ export default {
           align: 'left',
           field: 'special',
         },
+        {
+          name: 'slug',
+          label: '',
+          align: 'left',
+          field: 'slug',
+        },
       ],
-      visibleColumns: ['date', 'location', 'special'],
+      visibleColumns1: ['date', 'location', 'special'],
+      visibleColumns: ['date', 'name', 'location', 'special'],
       pagination: {
         sortBy: null,
         descending: false,
@@ -114,6 +129,7 @@ export default {
           conv2[el].location = conv[el].ort;
           conv2[el].special = conv[el].special;
           conv2[el].name = this.posts[post].title.rendered;
+          conv2[el].slug = this.posts[post].slug;
         });
         eventlist.push(conv2);
       });
@@ -128,12 +144,14 @@ export default {
             this.posts = this.$store.getters['posts/getPosts'];
             this.getDates(this.dates);
           });
-        })
-        .catch(err => console.log(err));
+        });
     },
     sortDates() {
       this.dates = [].concat(...this.dates);
       this.dates.sort((a, b) => (a > b ? -1 : a < b ? 1 : 0));
+    },
+    rowClick(row) {
+      this.$router.push(row.slug);
     },
   },
 };
