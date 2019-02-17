@@ -31,7 +31,7 @@
         <q-btn
           class="lt-md"
           flat
-          size="xl"
+          size="lg"
           @click="togglemenu" icon="menu"
         />
       </q-toolbar>
@@ -40,12 +40,12 @@
     <q-modal
       v-model="right">
       <router-link to="/">
-        <q-list-header>M O N S T R A</q-list-header>
       </router-link>
       <q-btn
         class="lt-md"
         flat
-        size="xl"
+        absolute-top-right
+        size="lg"
         @click="togglemenu" icon="close"
       />
         <q-list no-border highlight sparse separator>
