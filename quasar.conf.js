@@ -22,7 +22,7 @@ module.exports = function (ctx) {
     },
     build: {
       scopeHoisting: true,
-      publicPath: 'https://monstra.herokuapp.com/',
+      publicPath: '/',
       vueRouterMode: 'history',
       // gzip: true,
       // analyze: true,
