@@ -2,7 +2,7 @@
   <q-layout view="hHr lpr fff">
     <q-layout-header>
       <q-toolbar
-        color="ajda1" text-color="dark"
+        color="dark" text-color="white"
         class="q-py-none"
       >
         <q-toolbar-title>
@@ -10,7 +10,7 @@
           <img class="logo" alt="Logo" src="~assets/mooooo.svg">
           </router-link>
         </q-toolbar-title>
-        <q-tabs color="ajda1" text-color="dark" class="gt-sm">
+        <q-tabs color="dark" text-color="white" class="gt-sm">
           <q-route-tab label="Stücke"
                         to="/stuecke"
                         slot="title"
@@ -39,15 +39,12 @@
 
     <q-modal
       v-model="right">
-      <router-link to="/">
-      </router-link>
+      <div class="row justify-end closebutton">
       <q-btn
-        class="lt-md"
         flat
-        absolute-top-right
         size="lg"
         @click="togglemenu" icon="close"
-      />
+      /></div>
         <q-list no-border highlight sparse separator>
           <q-item to="/stuecke">
             <q-item-main label="Stücke">
@@ -68,16 +65,13 @@
         </q-list>
     </q-modal>
 
-    <q-page-container class="q-pb-xl">
+    <q-page-container>
       <router-view/>
     </q-page-container>
 
     <q-layout-footer>
-      <q-toolbar toolbar-small color="ajda1" text-color="dark">
-        <q-toolbar-title color="ajda1" text-color="dark" class="q-caption">
-          Copyright 2018 - M O N S T R A
-        </q-toolbar-title>
-        <router-link class="q-caption" to="/impressum">Impressum & Datenschutz</router-link>
+      <q-toolbar toolbar-small color="dark">
+        <router-link class="impress q-caption" to="/impressum">Impressum & Datenschutz</router-link>
       </q-toolbar>
     </q-layout-footer>
   </q-layout>
@@ -114,4 +108,8 @@ export default {
   .svg {
     position: absolute;
   }
+  .q-list
+    padding-top: 0px
+  .closebutton
+    padding-right: 12px
 </style>

@@ -7,6 +7,7 @@
       :columns="columns"
       row-key="date"
       :pagination.sync="pagination"
+      hide-bottom
       :visible-columns="visibleColumns">
       <q-tr slot="body" slot-scope="props" :props="props"
             @click.native="rowClick(props.row)" class="cursor-pointer">
@@ -20,6 +21,7 @@
     <q-table
       grid
       hide-header
+      hide-bottom
       :data="dates"
       :columns="columns"
       :visible-columns="visibleColumns1"
@@ -112,7 +114,7 @@ export default {
       visibleColumns: ['date', 'name', 'location', 'special'],
       pagination: {
         sortBy: null,
-        descending: false,
+        descending: true,
         page: 1,
         rowsPerPage: 100,
       },
@@ -123,7 +125,7 @@ export default {
       const eventlist = [];
       Object.keys(this.posts).forEach((post) => {
         const conv = this.posts[post].acf.event;
-        const conv2 = Object.keys(conv).map(key => new Date(conv[key].datum));
+        const conv2 = Object.keys(conv).map(key => new Date(conv[key].datum.replace(/-/g, '/')));
         Object.keys(conv2).forEach((el) => {
           conv2[el].date = conv2[el].toLocaleString('de-DE', this.options);
           conv2[el].location = conv[el].ort;
@@ -157,6 +159,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="stylus">
 
 </style>

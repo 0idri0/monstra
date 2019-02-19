@@ -35,6 +35,7 @@ if (ssr.settings.pwa) {
 
 // serve "www" folder
 app.use('/', serve('.', true))
+app.use(require('prerender-node'))
 
 // we extend the custom common dev & prod parts here
 extension.extendApp({ app })

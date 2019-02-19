@@ -62,7 +62,7 @@ export default {
       text-align center
       text-transform uppercase
       padding 12px
-      color $grey-4
+      color white
       background rgba(0, 0, 0, .5)
       text-decoration none
 </style>

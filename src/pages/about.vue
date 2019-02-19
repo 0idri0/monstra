@@ -7,11 +7,15 @@
           <div class="col-lg-4 col-md-6 maincontent">
             <img class="lt-md" :src="br._embedded['wp:featuredmedia']['0'].source_url"
                  v-if="br.featured_media > 0"/>
+            <div class="lt-md copyright q-caption"
+                 v-html="br._embedded['wp:featuredmedia']['0'].caption.rendered"/>
             <div v-html="br.content.rendered"/>
           </div>
         <div class="col-lg-6 col-md-5 maincontent">
           <img class="gt-sm" :src="br._embedded['wp:featuredmedia']['0'].source_url"
                v-if="br.featured_media > 0"/>
+          <div class="gt-sm copyright q-caption"
+               v-html="br._embedded['wp:featuredmedia']['0'].caption.rendered"/>
         </div>
       </div>
     </div>
@@ -47,6 +51,7 @@ export default {
 
 <style lang="stylus">
   .maincontent > img
-    max-width 100%
-
+    max-width: 100%
+  .copyright
+    color: $faded
 </style>

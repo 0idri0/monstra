@@ -1,5 +1,8 @@
 <template>
   <div>
+    <q-page-sticky class="q-ml-lg" position="top-left" :offset="[10, 10]">
+      <q-btn round color="dark" @click="$router.go(-1)" icon="keyboard_arrow_left"/>
+    </q-page-sticky>
     <div v-for="br in posts" :key="br.id" v-if="br.slug === $route.params.id"
       class="q-ma-sm q-pa-md">
       <h3>{{ br.title.rendered }}</h3>
@@ -8,6 +11,8 @@
           <img class="lt-md mainimage" :src="br._embedded['wp:featuredmedia']['0'].source_url"
                v-if="br.featured_media > 0"
                @click="fullscreenImage(br._embedded['wp:featuredmedia']['0'].source_url)"/>
+          <div class="lt-md copyright q-caption"
+               v-html="br._embedded['wp:featuredmedia']['0'].caption.rendered"/>
         <div>
             <div v-html="br.content.rendered"/>
           <hr class="q-hr">
@@ -28,7 +33,8 @@
         <img class="gt-sm mainimage" :src="br._embedded['wp:featuredmedia']['0'].source_url"
              v-if="br.featured_media > 0"
              @click="fullscreenImage(br._embedded['wp:featuredmedia']['0'].source_url)"/>
-          <div v-html="br._embedded['wp:featuredmedia']['0'].caption.rendered"/>
+          <div class="gt-sm copyright q-caption"
+               v-html="br._embedded['wp:featuredmedia']['0'].caption.rendered"/>
           <hr class="q-hr">
           <div class="row">
             <q-card inline class="q-ma-lg col-xl-5 shadow-0 q-caption"
@@ -36,7 +42,7 @@
               <q-card-media>
                 <img :src="img.source_url" @click="fullscreenImage(img.source_url)"/>
               </q-card-media>
-              <div v-html="img.caption.rendered"/>
+              <div class="copyright q-caption" v-html="img.caption.rendered"/>
             </q-card>
           </div>
         </div>
@@ -45,7 +51,7 @@
     <q-modal v-model="imageModal" maximized>
       <div class="imgModal">
       <img class="absolute-center" :src="selectedImage"/>
-      <q-page-sticky class="q-ml-lg" expand position="top-left" :offset="[10, 10]">
+      <q-page-sticky class="q-ml-lg" position="top-left" :offset="[10, 10]">
         <q-btn round color="light" @click="imageModal = false" icon="close"/>
       </q-page-sticky>
       </div>
@@ -86,7 +92,7 @@ export default {
       Object.keys(this.posts).forEach((post) => {
         if (this.posts[post].slug === this.$route.params.id) {
           const eventlist = this.posts[post].acf.event;
-          this.dates = Object.keys(eventlist).map(key => new Date(eventlist[key].datum));
+          this.dates = Object.keys(eventlist).map(key => new Date(eventlist[key].datum.replace(/-/g, '/')));
           Object.keys(this.dates).forEach((el) => {
             this.dates[el].location = eventlist[el].ort;
             this.dates[el].special = eventlist[el].special;
@@ -148,5 +154,6 @@ export default {
     width 28px
   .mainimage
     max-height: 60vh
-
+  .copyright
+    color: $faded
 </style>

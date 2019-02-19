@@ -18,6 +18,8 @@
     "axios": "^0.18.0",
     "connect-history-api-fallback": "^1.6.0",
     "express": "^4.16.4",
+    "prerender-node": "^3.2.1",
+    "prerender-spa-plugin": "^3.4.0",
     "serve-static": "^1.13.2"
   },
   "devDependencies": {
